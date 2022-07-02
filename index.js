@@ -48,6 +48,18 @@ async function run() {
         res.send(result);
       })
 
+      app.put('/updateTodo/:id', async (req, res) => {
+        const id = req.params.id;
+        const updateTodo = req.body;
+        const filter = { _id: ObjectId(id) };
+        const options = { upsert: true };
+        const updateDoc = {
+          $set: updateTodo,
+        };
+        const result = await userCollection.updateOne(filter, updateDoc, options);
+        res.send({ success: true, result });
+      })
+
   }
   finally {
 
